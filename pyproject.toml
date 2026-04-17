@@ -29,9 +29,9 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/bjhl/cc-skill-picker"
-Repository = "https://github.com/bjhl/cc-skill-picker"
-Issues = "https://github.com/bjhl/cc-skill-picker/issues"
+Homepage = "https://github.com/xtzx/cc-skill-picker"
+Repository = "https://github.com/xtzx/cc-skill-picker"
+Issues = "https://github.com/xtzx/cc-skill-picker/issues"
 
 [project.scripts]
 cc-skills = "cc_skills.cli:main"

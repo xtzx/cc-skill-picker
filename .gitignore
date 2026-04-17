@@ -6,6 +6,7 @@ __pycache__/
 
 # 本地运行产物
 .cache/
+CLAUDE.md
 
 # 打包 / 可编辑安装生成
 *.egg-info/

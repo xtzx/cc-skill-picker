@@ -49,16 +49,16 @@ cc-skill-picker/
 直接从 Git 装（推荐，不用克隆）：
 
 ```bash
-pip3 install "git+https://github.com/bjhl/cc-skill-picker.git"
+pip3 install "git+https://github.com/xtzx/cc-skill-picker.git"
 # 或用 pipx / uv 独立环境
-pipx install "git+https://github.com/bjhl/cc-skill-picker.git"
-uv tool install "git+https://github.com/bjhl/cc-skill-picker.git"
+pipx install "git+https://github.com/xtzx/cc-skill-picker.git"
+uv tool install "git+https://github.com/xtzx/cc-skill-picker.git"
 ```
 
 克隆后本地运行（开发用）：
 
 ```bash
-git clone https://github.com/bjhl/cc-skill-picker.git
+git clone https://github.com/xtzx/cc-skill-picker.git
 cd cc-skill-picker
 ./cc-skills           # 不装也能用，入口脚本会把 src 加到 PYTHONPATH
 ```
