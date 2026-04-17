@@ -1,0 +1,164 @@
+{
+  "entries": {
+    "changelog-generator": {
+      "short": "根据提交生成变更日志",
+      "summary": "根据 git 提交历史自动整理面向用户的 changelog、release notes 或版本更新摘要。",
+      "examples": "发版说明、版本更新页、对外更新摘要"
+    },
+    "connect": {
+      "short": "连接外部应用执行动作",
+      "summary": "把 Claude 直接接到外部应用执行真实动作，而不是只给建议或生成文案。",
+      "examples": "发邮件、建 GitHub issue、同步消息到 Slack 或 Notion"
+    },
+    "docx": {
+      "short": "创建编辑 Word 正式文档",
+      "summary": "读取、创建、编辑和转换 Word 文档，适合正式报告、模板、纪要和信函场景。",
+      "examples": "生成报告、修改 docx、补目录和页码"
+    },
+    "file-organizer": {
+      "short": "分析归类整理本地文件",
+      "summary": "分析目录结构、查重、重命名并自动归类整理本地文件和资料。",
+      "examples": "整理 Downloads、归档资料、找重复文件"
+    },
+    "frontend-design": {
+      "short": "设计实现高质量前端界面",
+      "summary": "设计并实现视觉完成度更高的 Web 页面、组件和交互界面。",
+      "examples": "做 landing page、重做 UI、提升页面高级感"
+    },
+    "mcp-builder": {
+      "short": "设计实现 MCP Server 工具",
+      "summary": "设计和实现 MCP Server，覆盖工具建模、命名、协议结构和错误处理。",
+      "examples": "把外部 API 封装成 MCP 工具、设计一组工具接口"
+    },
+    "pdf": {
+      "short": "读取拆分合并 OCR PDF",
+      "summary": "读取、拆分、合并、OCR、提取表格、填表或加工 PDF 文档。",
+      "examples": "读 PDF、合并文件、OCR 扫描件、提取表格"
+    },
+    "planning-with-files-zh": {
+      "short": "用文件管理复杂任务计划",
+      "summary": "用计划文件管理复杂任务，把目标、发现和进度拆成更可跟踪的结构化产物。",
+      "examples": "规划大型任务、拆解多步骤项目、追踪执行进度"
+    },
+    "pptx": {
+      "short": "读取生成编辑 PPT 演示稿",
+      "summary": "读取、生成、编辑、拆分和合并 PPT 文件，适合汇报材料与演示稿场景。",
+      "examples": "改 PPT、生成 deck、提取演示内容"
+    },
+    "customaize-agent:prompt-engineering": {
+      "short": "优化提示词与 Agent 工作流",
+      "summary": "设计和优化 prompts、commands、hooks、skills、subagent 提示词与工作流约束。",
+      "examples": "优化 prompt、写 system prompt、调整子代理提示"
+    },
+    "skill-creator": {
+      "short": "创建优化并评测 Skill",
+      "summary": "创建、修改、优化和评测 skill，提升触发率、稳定性和复用性。",
+      "examples": "写新 skill、优化触发描述、做 skill eval"
+    },
+    "skill-builder": {
+      "short": "从资料自动提炼生成 Skill",
+      "summary": "从文档站、仓库、PDF、视频或代码库中自动提炼知识，并生成可复用的 skill。",
+      "examples": "把仓库做成 skill、把文档网站沉淀成 skill"
+    },
+    "skill-share": {
+      "short": "打包校验并分享 Skill",
+      "summary": "创建 Claude skill，并完成打包、校验与分享，适合团队内部传播技能。",
+      "examples": "打包 skill、分享给团队、同步到 Slack"
+    },
+    "ui-ux-pro-max": {
+      "short": "系统评审并改进界面体验",
+      "summary": "从视觉、交互、可访问性、排版和响应式等维度系统评审并改进界面体验。",
+      "examples": "UI review、设计系统方案、体验优化建议"
+    },
+    "web-artifacts-builder": {
+      "short": "构建复杂交互式前端页面",
+      "summary": "生成复杂交互式 HTML artifact，适合多组件、有状态的前端演示或小应用。",
+      "examples": "交互式 demo、单页工具、嵌入式前端页面"
+    },
+    "webapp-testing": {
+      "short": "验证本地 Web 页面与交互",
+      "summary": "用 Playwright 等方式验证本地 Web 应用的页面、交互、截图和浏览器日志。",
+      "examples": "测页面、验证登录流程、检查交互是否正常"
+    },
+    "xlsx": {
+      "short": "读取修复生成 Excel 表格",
+      "summary": "读取、编辑、修复和生成 Excel、CSV、TSV 文件，并尽量保留公式与格式。",
+      "examples": "处理 xlsx、生成报表、修复 CSV 和公式"
+    },
+    "skill-creator:skill-creator": {
+      "short": "官方 Skill 创建优化工具",
+      "summary": "官方的 skill 开发辅助工具，用于创建、修改和优化 skills。",
+      "examples": "创建 skill、改进 skill、校验 skill 结构"
+    },
+    "superpowers:writing-skills": {
+      "short": "以测试驱动方式编写 Skill",
+      "summary": "用测试驱动的方式编写和验证 skills，把技能当作可测试的过程文档来迭代。",
+      "examples": "写 skill、改 skill、验证 skill 是否真的生效"
+    },
+    "superpowers:writing-plans": {
+      "short": "把需求拆成细粒度实施计划",
+      "summary": "把 spec 或需求转成细粒度实施计划，明确涉及文件、步骤、验证方式和交付边界。",
+      "examples": "为多步骤任务写计划、按模块拆解实现路径"
+    },
+    "superpowers:verification-before-completion": {
+      "short": "完成前强制运行验证命令",
+      "summary": "在声称“已经完成/修好/通过”之前，先运行验证命令并以新鲜证据作为依据。",
+      "examples": "提交前验证、发 PR 前验证、修 bug 后重新跑测试"
+    },
+    "superpowers:using-superpowers": {
+      "short": "Superpowers 技能使用总则",
+      "summary": "Superpowers 的总控说明，强调在合适场景优先调用技能，而不是直接凭直觉行动。",
+      "examples": "会话开场、判断该用哪个 superpowers skill"
+    },
+    "superpowers:using-git-worktrees": {
+      "short": "创建隔离 Worktree 工作区",
+      "summary": "为功能开发或计划执行创建隔离的 git worktree，降低切分支和相互污染的风险。",
+      "examples": "隔离开发、并行分支、为计划创建独立工作目录"
+    },
+    "superpowers:test-driven-development": {
+      "short": "先写失败测试再写实现",
+      "summary": "在实现功能或修 bug 前先写失败测试，再写最少代码通过测试，遵循 TDD 流程。",
+      "examples": "新功能先写测试、修 bug 先复现并写回归测试"
+    },
+    "superpowers:systematic-debugging": {
+      "short": "先找根因再修复问题",
+      "summary": "遇到 bug、测试失败或异常行为时，先做根因分析，再提出修复方案，避免乱修。",
+      "examples": "查根因、分析失败测试、排查异常行为"
+    },
+    "superpowers:subagent-driven-development": {
+      "short": "用子代理按计划分工开发",
+      "summary": "按计划把独立任务分派给 subagent 执行，并在每个任务后做规范与质量双重审查。",
+      "examples": "多任务并行开发、按计划分工、阶段性复查质量"
+    },
+    "superpowers:requesting-code-review": {
+      "short": "在关键节点主动发起评审",
+      "summary": "在重要任务完成后主动请求 code review，尽早发现问题并降低返工成本。",
+      "examples": "功能完成后 review、合并前 review、复杂修复后复查"
+    },
+    "superpowers:receiving-code-review": {
+      "short": "技术性处理并验证评审意见",
+      "summary": "收到 code review 反馈时先理解、验证和评估，再决定采纳或给出技术性回应。",
+      "examples": "消化 review 评论、逐条验证建议、避免盲改"
+    },
+    "superpowers:finishing-a-development-branch": {
+      "short": "完成开发后的测试合并收尾",
+      "summary": "在开发完成后按固定流程验证测试、给出集成选项，并完成分支收尾工作。",
+      "examples": "开发完成后的收尾、准备合并、清理分支"
+    },
+    "superpowers:executing-plans": {
+      "short": "按既定计划逐步落地执行",
+      "summary": "读取现成的实施计划，先评审计划是否合理，再按任务顺序落地执行。",
+      "examples": "已有 plan 后实施、分步骤执行复杂任务"
+    },
+    "superpowers:dispatching-parallel-agents": {
+      "short": "把独立问题并行分派给代理",
+      "summary": "把多个相互独立的问题分派给不同 agent 并行处理，加快调查和执行速度。",
+      "examples": "多个独立失败并查、并行调研、分域排查问题"
+    },
+    "superpowers:brainstorming": {
+      "short": "先澄清需求再比较方案设计",
+      "summary": "在动手前先澄清用户意图、约束和成功标准，比较方案并产出可确认的设计。",
+      "examples": "功能设计前讨论、方案对比、实现前需求澄清"
+    }
+  }
+}

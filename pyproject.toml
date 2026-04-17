@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cc-skills"
+version = "0.1.0"
+description = "终端内 Claude Code skills 搜索与复制工具（TUI）"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "bjhl" }
+]
+keywords = ["claude", "claude-code", "skills", "tui", "cli", "curses", "picker"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console :: Curses",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: MacOS :: MacOS X",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Terminals",
+  "Topic :: Utilities",
+]
+
+[project.urls]
+Homepage = "https://github.com/bjhl/cc-skill-picker"
+Repository = "https://github.com/bjhl/cc-skill-picker"
+Issues = "https://github.com/bjhl/cc-skill-picker/issues"
+
+[project.scripts]
+cc-skills = "cc_skills.cli:main"
+ccs = "cc_skills.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+cc_skills = ["resources/*.json"]

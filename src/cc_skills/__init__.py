@@ -1,0 +1,2 @@
+"""cc-skills package."""
+

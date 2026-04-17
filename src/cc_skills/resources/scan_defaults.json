@@ -1,0 +1,8 @@
+{
+  "ignoreSkillRules": [
+    { "type": "prefix", "value": "lark-" },
+    { "type": "prefix", "value": "document-" },
+    { "type": "namespace", "value": "document-skills" },
+    { "type": "namespace", "value": "superpowers" }
+  ]
+}
