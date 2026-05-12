@@ -7,6 +7,7 @@ from datetime import datetime
 from pathlib import Path
 
 DEFAULT_CLAUDE_DIR = Path.home() / ".claude"
+DEFAULT_AGENTS_SKILLS_DIR = Path.home() / ".agents" / "skills"
 DEFAULT_USAGE_RELATIVE_PATH = Path(".cache") / "cc-skills" / "skills-usage.json"
 RECENT_LIMIT = 5
 FREQUENT_LIMIT = 5
@@ -422,9 +423,15 @@ def normalize_usage_path(path: Path | None, start_dir: Path | None = None) -> Pa
     return resolve_default_usage_path(base_dir)
 
 
-def discover_catalog(start_dir: Path, claude_dir: Path = DEFAULT_CLAUDE_DIR) -> SkillCatalog:
+def discover_catalog(
+    start_dir: Path,
+    claude_dir: Path = DEFAULT_CLAUDE_DIR,
+    *,
+    agents_skills_dir: Path = DEFAULT_AGENTS_SKILLS_DIR,
+) -> SkillCatalog:
     start_dir = start_dir.resolve()
     claude_dir = claude_dir.expanduser().resolve()
+    agents_skills_dir = agents_skills_dir.expanduser().resolve()
     scan_config = load_scan_config(start_dir, claude_dir)
     ignore_rules = scan_config.ignore_skill_rules
 
@@ -439,13 +446,24 @@ def discover_catalog(start_dir: Path, claude_dir: Path = DEFAULT_CLAUDE_DIR) -> 
         skills.append(skill)
         seen.add(skill.name)
 
+    for skill_file in iter_skill_files(agents_skills_dir):
+        append(
+            make_skill(
+                skill_file,
+                namespace=None,
+                source_type="global",
+                source_label="全局 / agents",
+                ignore_rules=ignore_rules,
+            )
+        )
+
     for skill_file in iter_skill_files(claude_dir / "skills"):
         append(
             make_skill(
                 skill_file,
                 namespace=None,
                 source_type="global",
-                source_label="全局",
+                source_label="全局 / claude",
                 ignore_rules=ignore_rules,
             )
         )
@@ -500,8 +518,13 @@ def discover_catalog(start_dir: Path, claude_dir: Path = DEFAULT_CLAUDE_DIR) -> 
     return SkillCatalog(skills=skills, plugins=plugins, scan_config=scan_config)
 
 
-def discover_skills(start_dir: Path, claude_dir: Path = DEFAULT_CLAUDE_DIR) -> list[Skill]:
-    return discover_catalog(start_dir, claude_dir).skills
+def discover_skills(
+    start_dir: Path,
+    claude_dir: Path = DEFAULT_CLAUDE_DIR,
+    *,
+    agents_skills_dir: Path = DEFAULT_AGENTS_SKILLS_DIR,
+) -> list[Skill]:
+    return discover_catalog(start_dir, claude_dir, agents_skills_dir=agents_skills_dir).skills
 
 
 def load_usage(path: Path | None = None) -> dict[str, UsageInfo]:

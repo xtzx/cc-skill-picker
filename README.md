@@ -9,7 +9,7 @@
 ## 功能概览
 
 - 命令：`cc-skills`，短别名：`ccs`
-- 扫描 Claude 侧真实存在的 `SKILL.md` 技能条目
+- 优先扫描 `~/.agents/skills` 中的真实 `SKILL.md` 技能条目，兼容读取 Claude 侧替身目录
 - 列表优先使用内置中文短说明与完整说明；未配置映射时回退英文
 - 默认过滤规则来自 `src/cc_skills/resources/scan_defaults.json` 的 **`ignoreSkillRules`**
 - 使用频次与最近使用参与排序；usage 默认落在项目目录下
@@ -85,16 +85,19 @@ cc-skills --help
 | 参数 | 说明 |
 |------|------|
 | `--cwd` | 扫描起始目录，默认当前工作目录；会向上查找 `.claude/skills` 与合并 `settings` |
-| `--claude-dir` | Claude 配置根目录，默认 `~/.claude` |
+| `--claude-dir` | Claude 配置根目录，默认 `~/.claude`；用于读取 settings、插件缓存，以及兼容旧的 `skills` 替身目录 |
 | `--usage` | 使用记录 JSON 路径；不传则默认 `<项目根>/.cache/cc-skills/skills-usage.json` |
 
 ---
 
 ## 扫描范围
 
-1. **全局**：`{claude_dir}/skills/*/SKILL.md`
-2. **项目**：自 `--cwd` 起向父目录，每层 `.claude/skills/*/SKILL.md`
-3. **插件**：读取合并后的 `enabledPlugins`，在 `{claude_dir}/plugins/cache/{marketplace}/{plugin}/**/skills/*/SKILL.md` 中查找
+1. **个人真源**：`~/.agents/skills/*/SKILL.md`
+2. **Claude 兼容源**：`{claude_dir}/skills/*/SKILL.md`，用于兼容旧安装或未迁移的替身目录；若与个人真源同名，个人真源优先
+3. **项目**：自 `--cwd` 起向父目录，每层 `.claude/skills/*/SKILL.md`
+4. **插件**：读取合并后的 `enabledPlugins`，在 `{claude_dir}/plugins/cache/{marketplace}/{plugin}/**/skills/*/SKILL.md` 中查找
+
+扫描会尽量覆盖可用来源，但默认展示仍保持精简：命中 `ignoreSkillRules` 的 skill 会被过滤，不会因为新增真源扫描而把列表突然撑得很长。
 
 `settings` 合并顺序（后者覆盖同名字段，**不会删除**前者已写入的其它键）：
 
@@ -106,7 +109,7 @@ cc-skills --help
 
 ## 过滤规则：`ignoreSkillRules`
 
-内置默认在 **`src/cc_skills/resources/scan_defaults.json`**，每条规则：
+内置默认在 **`src/cc_skills/resources/scan_defaults.json`**。这些规则用于控制默认列表规模，避免高噪声 skill 系列或大型插件包淹没常用入口；每条规则：
 
 - `{ "type": "prefix", "value": "lark-" }`：skill **自身名字**（不含命名空间）以该前缀开头则忽略
 - `{ "type": "namespace", "value": "superpowers" }`：忽略形如 `superpowers:*` 的插件命名空间下全部 skill

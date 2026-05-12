@@ -23,6 +23,18 @@ from cc_skills.core import (
 
 
 class CoreTests(unittest.TestCase):
+    def write_skill(self, skill_dir: Path, *, name: str, description: str = "Helper") -> None:
+        skill_dir.mkdir(parents=True)
+        (skill_dir / "SKILL.md").write_text(
+            f"""---
+name: {name}
+description: {description}
+---
+Body
+""",
+            encoding="utf-8",
+        )
+
     def test_load_enabled_plugins_respects_settings_precedence(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             root = Path(tmpdir)
@@ -56,6 +68,57 @@ class CoreTests(unittest.TestCase):
             enabled = load_enabled_plugins(project, claude_dir)
 
         self.assertEqual(enabled, {"alpha@market", "beta@market"})
+
+    def test_discover_catalog_prefers_agents_skills_and_uses_claude_skills_as_compatibility_source(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            agents_skills_dir = root / ".agents" / "skills"
+            claude_dir = root / ".claude"
+            project = root / "project"
+
+            self.write_skill(
+                agents_skills_dir / "shared-skill",
+                name="shared-skill",
+                description="Agents source helper",
+            )
+            self.write_skill(
+                claude_dir / "skills" / "shared-skill",
+                name="shared-skill",
+                description="Claude compatibility helper",
+            )
+            self.write_skill(
+                claude_dir / "skills" / "claude-only",
+                name="claude-only",
+                description="Claude only helper",
+            )
+
+            catalog = discover_catalog(project, claude_dir, agents_skills_dir=agents_skills_dir)
+            skill_map = {skill.name: skill for skill in catalog.skills}
+
+        self.assertEqual(set(skill_map), {"shared-skill", "claude-only"})
+        self.assertEqual(skill_map["shared-skill"].summary, "Agents source helper")
+        self.assertIn(str(agents_skills_dir / "shared-skill" / "SKILL.md"), skill_map["shared-skill"].scenes)
+        self.assertEqual(skill_map["shared-skill"].group_label, "全局 / agents")
+        self.assertEqual(skill_map["claude-only"].summary, "Claude only helper")
+        self.assertEqual(skill_map["claude-only"].group_label, "全局 / claude")
+
+    def test_discover_catalog_keeps_default_filtering_for_agents_source(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            agents_skills_dir = root / ".agents" / "skills"
+            claude_dir = root / ".claude"
+            project = root / "project"
+
+            self.write_skill(agents_skills_dir / "lark-demo", name="lark-demo", description="Lark helper")
+            self.write_skill(agents_skills_dir / "plain-demo", name="plain-demo", description="Plain helper")
+
+            catalog = discover_catalog(project, claude_dir, agents_skills_dir=agents_skills_dir)
+            names = {skill.name for skill in catalog.skills}
+
+        self.assertNotIn("lark-demo", names)
+        self.assertIn("plain-demo", names)
 
     def test_discover_catalog_filters_default_ignored_skill_series_and_exposes_plugin_commands(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -150,7 +213,7 @@ Body
                 encoding="utf-8",
             )
 
-            catalog = discover_catalog(project, claude_dir)
+            catalog = discover_catalog(project, claude_dir, agents_skills_dir=root / ".agents" / "skills")
             skill_map = {skill.name: skill for skill in catalog.skills}
             names = set(skill_map)
             plugins = {plugin.name: plugin for plugin in catalog.plugins}
@@ -233,7 +296,7 @@ Body
                 encoding="utf-8",
             )
 
-            catalog = discover_catalog(project, claude_dir)
+            catalog = discover_catalog(project, claude_dir, agents_skills_dir=root / ".agents" / "skills")
             names = {skill.name for skill in catalog.skills}
 
         self.assertIn("lark-demo", names)
@@ -286,7 +349,7 @@ Body
                 encoding="utf-8",
             )
 
-            catalog = discover_catalog(project, claude_dir)
+            catalog = discover_catalog(project, claude_dir, agents_skills_dir=root / ".agents" / "skills")
             names = {skill.name for skill in catalog.skills}
 
         self.assertNotIn("lark-demo", names)
@@ -314,7 +377,7 @@ Body
                 encoding="utf-8",
             )
 
-            skills = discover_skills(root, claude_dir)
+            skills = discover_skills(root, claude_dir, agents_skills_dir=root / ".agents" / "skills")
 
         self.assertEqual(skills, [])
 

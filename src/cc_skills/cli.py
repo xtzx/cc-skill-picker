@@ -25,7 +25,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--claude-dir",
         type=Path,
         default=DEFAULT_CLAUDE_DIR,
-        help="Claude 配置目录，默认 ~/.claude",
+        help="Claude 配置目录，默认 ~/.claude，用于 settings、插件缓存与兼容 skills 源",
     )
     parser.add_argument(
         "--usage",
